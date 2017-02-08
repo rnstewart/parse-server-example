@@ -119,7 +119,6 @@ Parse.Cloud.define('UpdateUser', function(req, res){
                 if (role == 3) {
                     var queryUser = new Parse.Query(Parse.User);
                     queryUser.equalTo('objectId', userId);
-                    console.log('queryUser = ' + JSON.stringify(queryUser));
                     queryUser.first({
                         success: function(user){
                             if (user != undefined) {
@@ -132,11 +131,9 @@ Parse.Cloud.define('UpdateUser', function(req, res){
                                 if (role != undefined) {
                                     user.set('role', role);
                                 }
-                                console.log('user = ' + JSON.stringify(user));
                                 user.save(null, {
                                     useMasterKey: true,
                                     success: function(object){
-                                        console.log('User Updated.');
                                         res.success('User Updated.');
                                     },
                                     error: function(object, error){
