@@ -58,8 +58,6 @@ Parse.Cloud.define('DeleteUser', function(req, res){
     Parse.Cloud.useMasterKey();
     var callingUserId = req.params.userId;
     var username = req.params.username;
-    var password = req.params.password;
-    var role = req.params.role;
     
     var queryUser = new Parse.Query(Parse.User);
     queryUser.equalTo('objectId', callingUserId);
