@@ -104,7 +104,7 @@ Parse.Cloud.define('DeleteUser', function(req, res){
 });
 
 Parse.Cloud.define('UpdateUser', function(req, res){
-    var currentUser = request.user;
+    var currentUser = req.user;
     console.log("currentUser = " + JSON.stringify(currentUser));
     var callingUserId = req.params.callingUserId;
     var userId = req.params.userId;
