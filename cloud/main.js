@@ -27,7 +27,7 @@ Parse.Cloud.define('CreateUser', function(req, res){
                                 user.set('password', password);
                                 user.set('role', role);
                                 user.signUp().then(function(user){
-                                    res.success('User Created');
+                                    res.success(JSON.stringify(user));
                                 });
                             }
                             else {
