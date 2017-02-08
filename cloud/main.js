@@ -62,20 +62,25 @@ Parse.Cloud.define('DeleteUser', function(req, res){
     var queryUser = new Parse.Query(Parse.User);
     queryUser.equalTo('objectId', callingUserId);
     queryUser.first({
-        success: function(user){
-            if (user != undefined) {
-                var role = user.get('role');
+        success: function(callingUser){
+            if (callingUser != undefined) {
+                var role = callingUser.get('role');
                 if (role == 3) {
                     var queryUser = new Parse.Query(Parse.User);
                     queryUser.equalTo('username', username);
+                    console.log('queryUser = ' + JSON.stringify(queryUser));
                     queryUser.first({
                         success: function(user){
+                            console.log('user = ' + JSON.stringify(user));
                             if (user != undefined) {
+                                console.log('destroy user.');
                                 user.destroy({
                                     success: function(object){
+                                        console.log('User destroyed.');
                                         res.success('User Deleted.');
                                     },
                                     error: function(object, error){
+                                        console.log('ERORR: ' + error);
                                         res.error(error);
                                     }
                                 });
