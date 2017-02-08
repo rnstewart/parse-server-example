@@ -18,19 +18,25 @@ Parse.Cloud.define('CreateUser', function(req, res){
     var queryUser = new Parse.Query(Parse.User);
     queryUser.equalTo('username', username);
     console.log('queryUser = ' + JSON.stringify(queryUser));
-    queryUser.first().then(function(user){
+    queryUser.first(
+        success: function(user){
         console.log('user = ' + JSON.stringify(user));
-        if (user == undefined) {
-            user = new Parse.User();
-            user.set('username', username);
-            user.set('password', password);
-            user.set('role', role);
-            user.signUp().then(function(user){
-                res.success('User Created');
-            });
+            if (user == undefined) {
+                user = new Parse.User();
+                user.set('username', username);
+                user.set('password', password);
+                user.set('role', role);
+                user.signUp().then(function(user){
+                    res.success('User Created');
+                });
+            }
+            else {
+                res.error('User Exists');
+            }
+        },
+        error: function(error){
+            res.error(error);
         }
-        else {
-            res.error('User Exists');
-        }
-    });
+        
+    );
 });
