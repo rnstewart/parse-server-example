@@ -124,7 +124,7 @@ Parse.Cloud.define('UpdateUser', function(req, res){
                         success: function(user){
                             if (user != undefined) {
                                 user.set('username', username);
-                                user.set('password', password);
+//                                 user.set('password', password);
                                 user.set('role', role);
                                 console.log('user = ' + JSON.stringify(user));
                                 user.save({
