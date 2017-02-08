@@ -123,11 +123,17 @@ Parse.Cloud.define('UpdateUser', function(req, res){
                     queryUser.first({
                         success: function(user){
                             if (user != undefined) {
-                                user.set('username', username);
-//                                 user.set('password', password);
-                                user.set('role', role);
+                                if (username != undefined) {
+                                    user.set('username', username);
+                                }
+                                if (password != undefined) {
+                                    user.set('password', password);
+                                }
+                                if (role != undefined) {
+                                    user.set('role', role);
+                                }
                                 console.log('user = ' + JSON.stringify(user));
-                                user.save({
+                                user.save(null, {
                                     useMasterKey: true,
                                     success: function(object){
                                         console.log('User Updated.');
