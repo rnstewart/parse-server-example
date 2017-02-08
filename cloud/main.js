@@ -53,3 +53,55 @@ Parse.Cloud.define('CreateUser', function(req, res){
         }
     });
 });
+
+Parse.Cloud.define('DeleteUser', function(req, res){
+    Parse.Cloud.useMasterKey();
+    var callingUserId = req.params.userId;
+    var username = req.params.username;
+    var password = req.params.password;
+    var role = req.params.role;
+    
+    var queryUser = new Parse.Query(Parse.User);
+    queryUser.equalTo('objectId', callingUserId);
+    queryUser.first({
+        success: function(user){
+            if (user != undefined) {
+                var role = user.get('role');
+                if (role == 3) {
+                    var queryUser = new Parse.Query(Parse.User);
+                    queryUser.equalTo('username', username);
+                    queryUser.first({
+                        success: function(user){
+                            if (user != undefined) {
+                                user.destroy({
+                                    success: function(object){
+                                        res.success('User Deleted.');
+                                    },
+                                    error: function(object, error){
+                                        res.error(error);
+                                    }
+                                });
+                            }
+                            else {
+                                res.error('User Does Not Exist.');
+                            }
+                        },
+                        error: function(error){
+                            res.error(error);
+                        }
+                        
+                    });
+                }
+                else {
+                    res.error('User not authorized to do this.');
+                }
+            }
+            else {
+                res.error('User not authorized to do this.');
+            }
+        },
+        error: function(error){
+            res.error(error);
+        }
+    });
+});
