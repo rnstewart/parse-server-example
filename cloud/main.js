@@ -19,7 +19,6 @@ Parse.Cloud.define('CreateUser', function(req, res){
                     var queryUser = new Parse.Query(Parse.User);
                     queryUser.equalTo('username', username);
                     queryUser.first({
-                        useMasterKey: true,
                         success: function(user){
                             if (user == undefined) {
                                 user = new Parse.User();
@@ -69,12 +68,12 @@ Parse.Cloud.define('DeleteUser', function(req, res){
                     queryUser.equalTo('username', username);
                     console.log('queryUser = ' + JSON.stringify(queryUser));
                     queryUser.first({
-                        useMasterKey: true,
                         success: function(user){
                             console.log('user = ' + JSON.stringify(user));
                             if (user != undefined) {
                                 console.log('destroy user.');
                                 user.destroy({
+                                    useMasterKey: true,
                                     success: function(object){
                                         console.log('User destroyed.');
                                         res.success('User Deleted.');
