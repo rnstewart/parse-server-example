@@ -11,7 +11,7 @@ Parse.Cloud.define('CreateUser', function(req, res){
     var role = req.params.role;
     
     var queryUser = new Parse.Query(Parse.User);
-    queryUser.set('objectId', callingUserId);
+    queryUser.equalTo('objectId', callingUserId);
     queryUser.first({
         success: function(user){
             if (user != undefined) {
