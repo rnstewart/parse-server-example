@@ -11,13 +11,13 @@ Parse.Cloud.define('CreateUser', function(req, res){
     
     var queryUser = new Parse.Query(Parse.User);
     queryUser.equalTo('username', username);
-    return queryUser.first().then(function(user){
+    queryUser.first().then(function(user){
         if (user == undefined) {
-            user = new Parse.User;
+            user = new Parse.User();
             user.set('username', username);
             user.set('password', password);
             user.set('role', role);
-            return user.signUp().then(function(user){
+            user.signUp().then(function(user){
                 res.success('User Created');
             });
         }
