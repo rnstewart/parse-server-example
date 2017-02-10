@@ -3,6 +3,47 @@ Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
 
+Parse.Cloud.define('GetUsers', function(req, res){
+    var callingUserId = req.params.userId;
+    
+    var queryUser = new Parse.Query(Parse.User);
+    queryUser.equalTo('objectId', callingUserId);
+    queryUser.first({
+        success: function(user){
+            if (user != undefined) {
+                var role = user.get('role');
+                if (role == 3) {
+                    var queryUser = new Parse.Query(Parse.User);
+                    queryUser.find({
+                        useMasterKey: true,
+                        success: function(users){
+                            if (users != undefined) {
+                                res.success(JSON.stringify(user));
+                            }
+                            else {
+                                res.error('No users found.');
+                            }
+                        },
+                        error: function(error){
+                            res.error(error);
+                        }
+                        
+                    });
+                }
+                else {
+                    res.error('User not authorized to do this.');
+                }
+            }
+            else {
+                res.error('User ' + callingUserId + ' does not exist.');
+            }
+        },
+        error: function(error){
+            res.error(error);
+        }
+    });
+});
+
 Parse.Cloud.define('CreateUser', function(req, res){
     var callingUserId = req.params.userId;
     var username = req.params.username;
