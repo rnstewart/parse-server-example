@@ -18,7 +18,7 @@ Parse.Cloud.define('GetUsers', function(req, res){
                         useMasterKey: true,
                         success: function(users){
                             if (users != undefined) {
-                                res.success(JSON.stringify(user));
+                                res.success(users);
                             }
                             else {
                                 res.error('No users found.');
