@@ -7,7 +7,7 @@ Parse.Cloud.define('CheckSignupCode', function(req, res){
     var code = req.params.code;
     var role = req.params.role;
 
-    var SignupCodes = Parse.Object.extend('SignupCodes');
+    var SignupCodes = Parse.Object.extend("SignupCodes");
     var query = new Parse.Query(SignupCodes);
 //     query.equalTo('role', role);
     console.log('query = ' + JSON.stringify(query));
