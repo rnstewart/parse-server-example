@@ -113,6 +113,7 @@ Parse.Cloud.define('DeleteUser', function(req, res){
                                 user.destroy({
                                     useMasterKey: true,
                                     success: function(object){
+                                        console.log('Deleting entries for user ' + JSON.stringify(user));
                                         deleteEntriesForUser(user, res);
                                     },
                                     error: function(object, error){
