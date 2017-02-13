@@ -3,6 +3,29 @@ Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
 
+Parse.Cloud.define('CheckSignupCode', function(req, res){
+    var code = req.params.code;
+    var role = req.params.role;
+
+    var SignupCodes = Parse.Object.extend('SignupCodes');
+    var query = new Parse.Query(SignupCodes);
+    query.equalTo('role', role);
+    query.equalTo('code', code);
+    queryUser.first({
+        success: function(object){
+            if (object != undefined) {
+                res.success('OK');
+            }
+            else {
+                res.error('Invalid Code.');
+            }
+        },
+        error: function(error){
+            res.error(error);
+        }
+    });
+});
+
 Parse.Cloud.define('GetUsers', function(req, res){
     var callingUserId = req.params.userId;
 
