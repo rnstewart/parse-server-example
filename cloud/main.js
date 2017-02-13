@@ -157,8 +157,8 @@ function deleteEntriesForUser(user, res) {
             console.log('objects = ' + JSON.stringify(objects));
             var ids = [];
             for (object in objects){
-                console.log('object = ' + JSON.stringify(object));
                 if (object.id != undefined) {
+                    console.log('object = ' + JSON.stringify(object));
                     ids.push(object.id);
                 }
             }
