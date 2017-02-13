@@ -155,7 +155,10 @@ function deleteEntriesForUser(user, res) {
         success: function(objects){
             var ids = [];
             for (object in objects){
-                ids.push(object.id);
+                console.log('object = ' + JSON.stringify(object));
+                if (object.id ! undefined) {
+                    ids.push(object.id);
+                }
             }
             console.log('ids = ' + JSON.stringify(ids));
             Parse.Object.destroyAll(ids, {
