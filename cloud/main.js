@@ -12,6 +12,7 @@ Parse.Cloud.define('CheckSignupCode', function(req, res){
 //     query.equalTo('role', role);
     console.log('query = ' + JSON.stringify(query));
     query.first({
+        useMasterKey: true,
         success: function(object){
             console.log('object = ' + JSON.stringify(object));
             if (object != undefined) {
