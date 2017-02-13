@@ -113,7 +113,6 @@ Parse.Cloud.define('DeleteUser', function(req, res){
                                 user.destroy({
                                     useMasterKey: true,
                                     success: function(object){
-                                        console.log('Deleting entries for user ' + JSON.stringify(user));
                                         deleteEntriesForUser(user, res);
                                     },
                                     error: function(object, error){
@@ -146,7 +145,6 @@ Parse.Cloud.define('DeleteUser', function(req, res){
 });
 
 function deleteEntriesForUser(user, res) {
-    console.log('deleteEntriesForUser(' + user.id + ')');
     var Entry = Parse.Object.extend('Entry');
     var query = new Parse.Query(Entry);
     query.equalTo('user', user);
@@ -154,17 +152,7 @@ function deleteEntriesForUser(user, res) {
     query.find({
         useMasterKey: true,
         success: function(objects){
-            console.log('objects = ' + JSON.stringify(objects));
-            var ids = [];
-            for (i = 0; i < objects.length; i++){
-                object = objects[i];
-                if (object.id != undefined) {
-                    console.log('object = ' + JSON.stringify(object));
-                    ids.push(object.id);
-                }
-            }
-            console.log('ids = ' + JSON.stringify(ids));
-            Parse.Object.destroyAll(ids, {
+            Parse.Object.destroyAll(objects, {
                 success: function(){
                     console.log('Entries deleted.');
                     res.success('Deleted');
