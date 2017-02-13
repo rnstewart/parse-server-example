@@ -40,7 +40,7 @@ Parse.Cloud.define('CreateSignupCode', function(req, res){
     obj.save({
         success: function(object){
             res.sucess(object);
-        }
+        },
         error: function(error){
             res.error(error);
         }
