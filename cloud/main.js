@@ -150,9 +150,11 @@ function deleteEntriesForUser(user, res) {
     var Entry = Parse.Object.extend('Entry');
     var query = new Parse.Query(Entry);
     query.equalTo('user', user);
+    console.log('query = ' + JSON.stringify(query));
     query.find({
         useMasterKey: true,
         success: function(objects){
+            console.log('objects = ' + JSON.stringify(objects));
             var ids = [];
             for (object in objects){
                 console.log('object = ' + JSON.stringify(object));
