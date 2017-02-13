@@ -12,7 +12,7 @@ Parse.Cloud.define('GetUsers', function(req, res){
         success: function(user){
             if (user != undefined) {
                 var role = user.get('role');
-                if (role == 3) {
+                if (role == 2 || role == 3) {
                     var queryUser = new Parse.Query(Parse.User);
                     queryUser.find({
                         useMasterKey: true,
@@ -56,7 +56,7 @@ Parse.Cloud.define('CreateUser', function(req, res){
         success: function(user){
             if (user != undefined) {
                 var role = user.get('role');
-                if (role == 3) {
+                if (role == 2 || role == 3) {
                     var queryUser = new Parse.Query(Parse.User);
                     queryUser.equalTo('username', username);
                     queryUser.first({
@@ -104,7 +104,7 @@ Parse.Cloud.define('DeleteUser', function(req, res){
         success: function(callingUser){
             if (callingUser != undefined) {
                 var role = callingUser.get('role');
-                if (role == 3) {
+                if (role == 2 || role == 3) {
                     var queryUser = new Parse.Query(Parse.User);
                     queryUser.equalTo('username', username);
                     queryUser.first({
@@ -157,7 +157,7 @@ Parse.Cloud.define('UpdateUser', function(req, res){
         success: function(callingUser){
             if (callingUser != undefined) {
                 var role = callingUser.get('role');
-                if (role == 3) {
+                if (role == 2 || role == 3) {
                     var queryUser = new Parse.Query(Parse.User);
                     queryUser.equalTo('objectId', userId);
                     queryUser.first({
