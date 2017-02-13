@@ -28,6 +28,25 @@ Parse.Cloud.define('CheckSignupCode', function(req, res){
     });
 });
 
+Parse.Cloud.define('CreateSignupCode', function(req, res){
+    var code = req.params.code;
+    var role = req.params.role;
+
+    var SignupCodes = Parse.Object.extend("SignupCodes");
+    
+    var obj = new SignupCodes();
+    obj.set('role', role);
+    obj.set('code', code);
+    obj.save({
+        success: function(object){
+            res.sucess(object);
+        }
+        error: function(error){
+            res.error(error);
+        }
+    });
+});
+
 Parse.Cloud.define('GetUsers', function(req, res){
     var callingUserId = req.params.userId;
 
