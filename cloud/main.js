@@ -5,7 +5,7 @@ Parse.Cloud.define('hello', function(req, res) {
 
 Parse.Cloud.define('GetUsers', function(req, res){
     var callingUserId = req.params.userId;
-    
+
     var queryUser = new Parse.Query(Parse.User);
     queryUser.equalTo('objectId', callingUserId);
     queryUser.first({
@@ -27,7 +27,7 @@ Parse.Cloud.define('GetUsers', function(req, res){
                         error: function(error){
                             res.error(error);
                         }
-                        
+
                     });
                 }
                 else {
@@ -49,7 +49,7 @@ Parse.Cloud.define('CreateUser', function(req, res){
     var username = req.params.username;
     var password = req.params.password;
     var role = req.params.role;
-    
+
     var queryUser = new Parse.Query(Parse.User);
     queryUser.equalTo('objectId', callingUserId);
     queryUser.first({
@@ -77,7 +77,7 @@ Parse.Cloud.define('CreateUser', function(req, res){
                         error: function(error){
                             res.error(error);
                         }
-                        
+
                     });
                 }
                 else {
@@ -97,7 +97,7 @@ Parse.Cloud.define('CreateUser', function(req, res){
 Parse.Cloud.define('DeleteUser', function(req, res){
     var callingUserId = req.params.userId;
     var username = req.params.username;
-    
+
     var queryUser = new Parse.Query(Parse.User);
     queryUser.equalTo('objectId', callingUserId);
     queryUser.first({
@@ -127,7 +127,7 @@ Parse.Cloud.define('DeleteUser', function(req, res){
                         error: function(error){
                             res.error(error);
                         }
-                        
+
                     });
                 }
                 else {
@@ -150,14 +150,14 @@ Parse.Cloud.define('UpdateUser', function(req, res){
     var username = req.params.username;
     var password = req.params.password;
     var role = req.params.role;
-    
+
     var queryUser = new Parse.Query(Parse.User);
     queryUser.equalTo('objectId', callingUserId);
     queryUser.first({
         success: function(callingUser){
             if (callingUser != undefined) {
-                var role = callingUser.get('role');
-                if (role == 2 || role == 3) {
+                var callingRole = callingUser.get('role');
+                if (callingRole == 3) {
                     var queryUser = new Parse.Query(Parse.User);
                     queryUser.equalTo('objectId', userId);
                     queryUser.first({
@@ -189,7 +189,7 @@ Parse.Cloud.define('UpdateUser', function(req, res){
                         error: function(error){
                             res.error(error);
                         }
-                        
+
                     });
                 }
                 else {
